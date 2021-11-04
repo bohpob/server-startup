@@ -25,8 +25,8 @@ public class InvestorController {
     }
 
     @PutMapping("/{id}")
-    public InvestorDTO update(@PathVariable Integer id) throws UserNotFoundException {
-        return investorService.update(id);
+    public InvestorDTO update(@PathVariable Integer id, @RequestBody InvestorDTO investorDTO) throws UserNotFoundException {
+        return investorService.update(id, investorDTO);
     }
 
     @DeleteMapping("/{id}")

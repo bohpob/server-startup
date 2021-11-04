@@ -1,10 +1,10 @@
 package cz.cvut.fit.tjv.poberboh.server.repository;
 
-import cz.cvut.fit.tjv.poberboh.server.entity.Investor;
+import cz.cvut.fit.tjv.poberboh.server.entity.Owner;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OwnerRepository extends CrudRepository<Investor, Integer> {
+public interface OwnerRepository extends CrudRepository<Owner, Integer> {
 
 }

@@ -3,7 +3,6 @@ package cz.cvut.fit.tjv.poberboh.server.dto;
 public class OwnerDTO {
 
     public String firstname;
-
     public String lastname;
 
     public OwnerDTO(String firstname, String lastname) {

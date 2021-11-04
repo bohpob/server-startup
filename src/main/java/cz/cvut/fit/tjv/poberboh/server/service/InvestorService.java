@@ -31,15 +31,12 @@ public class InvestorService{
         return investorDTO;
     }
 
-    public InvestorDTO update(Integer id) throws UserNotFoundException {
+    public InvestorDTO update(Integer id, InvestorDTO investorDTO) throws UserNotFoundException {
         if(id != null) {
-            Investor investor = investorRepository.findById(id).get();
-            if(!investorRepository.existsById(investor.getId())) {
-                throw new UserNotFoundException("User not found");
-            }
-            investor.setFirstname(investor.getLastname());
-            investorRepository.save(investor);
-            return InvestorConverter.fromModel(investor);
+            Investor newInvestor = investorRepository.findById(id).get();
+            newInvestor.setFirstname(investorDTO.getFirstname());
+            newInvestor.setLastname(investorDTO.getLastname());
+            return InvestorConverter.fromModel(investorRepository.save(newInvestor));
         } else {
             throw new UserNotFoundException("User not found");
         }

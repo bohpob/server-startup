@@ -3,14 +3,12 @@ package cz.cvut.fit.tjv.poberboh.server.dto;
 public class InvestorDTO {
 
     public String firstname;
-
     public String lastname;
 
     public InvestorDTO(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
     }
-
 
     public InvestorDTO() {
     }
