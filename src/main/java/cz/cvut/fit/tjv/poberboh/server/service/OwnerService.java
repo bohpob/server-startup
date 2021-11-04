@@ -1,10 +1,7 @@
 package cz.cvut.fit.tjv.poberboh.server.service;
 
-import cz.cvut.fit.tjv.poberboh.server.converter.InvestorConverter;
 import cz.cvut.fit.tjv.poberboh.server.converter.OwnerConverter;
-import cz.cvut.fit.tjv.poberboh.server.dto.InvestorDTO;
 import cz.cvut.fit.tjv.poberboh.server.dto.OwnerDTO;
-import cz.cvut.fit.tjv.poberboh.server.entity.Investor;
 import cz.cvut.fit.tjv.poberboh.server.entity.Owner;
 import cz.cvut.fit.tjv.poberboh.server.exception.UserAlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.UserNotFoundException;
