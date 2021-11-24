@@ -7,6 +7,8 @@ import cz.cvut.fit.tjv.poberboh.server.service.InvestorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/investors")
 public class InvestorController {
@@ -15,8 +17,8 @@ public class InvestorController {
     private InvestorService investorService;
 
     @PostMapping
-    public InvestorDTO create(@RequestBody InvestorDTO investorDTO) throws AlreadyExistException {
-        return investorService.create(investorDTO);
+    public InvestorDTO create(@RequestBody InvestorDTO investorDTO, @RequestParam ArrayList<Integer> ids) throws AlreadyExistException {
+        return investorService.create(investorDTO, ids);
     }
 
     @GetMapping("/{id}")

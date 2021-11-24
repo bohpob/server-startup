@@ -2,10 +2,13 @@ package cz.cvut.fit.tjv.poberboh.server.dto;
 
 import cz.cvut.fit.tjv.poberboh.server.entity.Owner;
 
+import java.util.List;
+
 public class StartupDTO {
 
     private String name;
     private Integer investment;
+    private List<InvestorDTO> investorList;
 
     public StartupDTO(String name, Integer investment) {
         this.name = name;

@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.poberboh.server.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +12,13 @@ public class Investor {
     private Integer id;
     private String firstname;
     private String lastname;
+
+    @ManyToMany
+    @JoinTable(
+            name = "invested",
+            joinColumns = @JoinColumn(name = "investor_id"),
+            inverseJoinColumns = @JoinColumn(name = "startup_id"))
+    private List<Startup> invested;
 
     public Investor() {
     }
@@ -24,6 +32,18 @@ public class Investor {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<Startup> getInvested() {
+        return invested;
+    }
+
+    public void setInvested(List<Startup> invested) {
+        this.invested = invested;
     }
 
     public int getId() {

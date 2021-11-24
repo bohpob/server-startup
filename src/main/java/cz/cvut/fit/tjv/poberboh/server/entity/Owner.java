@@ -13,7 +13,7 @@ public class Owner {
     private String firstname;
     private String lastname;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Startup> startupList;
 
     public Owner() {
