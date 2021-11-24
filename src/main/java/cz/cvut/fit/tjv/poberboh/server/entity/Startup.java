@@ -1,9 +1,7 @@
 package cz.cvut.fit.tjv.poberboh.server.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -28,6 +26,17 @@ public class Startup {
 
     public Startup() {
     }
+
+    @ManyToOne
+    @JoinColumn(name = "owner_name")
+    private Owner owner;
+
+    @ManyToMany
+    @JoinTable(name = "investments",
+            joinColumns = @JoinColumn(name = "startup_id"),
+            inverseJoinColumns = @JoinColumn(name = "investor_id")
+    )
+    private List<Investor> investorList;
 
     public Integer getId() {
         return id;

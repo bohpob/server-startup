@@ -2,7 +2,7 @@ package cz.cvut.fit.tjv.poberboh.server.controller;
 
 import cz.cvut.fit.tjv.poberboh.server.dto.InvestorDTO;
 import cz.cvut.fit.tjv.poberboh.server.exception.UserAlreadyExistException;
-import cz.cvut.fit.tjv.poberboh.server.exception.UserNotFoundException;
+import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.service.InvestorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,17 +20,17 @@ public class InvestorController {
     }
 
     @GetMapping("/{id}")
-    public InvestorDTO read(@PathVariable Integer id) throws UserNotFoundException {
+    public InvestorDTO read(@PathVariable Integer id) throws NotFoundException {
         return investorService.read(id);
     }
 
     @PutMapping("/{id}")
-    public InvestorDTO update(@PathVariable Integer id, @RequestBody InvestorDTO investorDTO) throws UserNotFoundException {
+    public InvestorDTO update(@PathVariable Integer id, @RequestBody InvestorDTO investorDTO) throws NotFoundException {
         return investorService.update(id, investorDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) throws UserNotFoundException {
+    public void delete(@PathVariable Integer id) throws NotFoundException {
         investorService.delete(id);
     }
 

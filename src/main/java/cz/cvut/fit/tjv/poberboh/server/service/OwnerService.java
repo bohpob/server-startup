@@ -4,10 +4,11 @@ import cz.cvut.fit.tjv.poberboh.server.converter.OwnerConverter;
 import cz.cvut.fit.tjv.poberboh.server.dto.OwnerDTO;
 import cz.cvut.fit.tjv.poberboh.server.entity.Owner;
 import cz.cvut.fit.tjv.poberboh.server.exception.UserAlreadyExistException;
-import cz.cvut.fit.tjv.poberboh.server.exception.UserNotFoundException;
+import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class OwnerService {
@@ -23,34 +24,35 @@ public class OwnerService {
         return ownerDTO;
     }
 
-    public OwnerDTO read(Integer id) throws UserNotFoundException {
-        OwnerDTO ownerDTO = OwnerConverter.fromModel(ownerRepository.findById(id).get());
-        if(ownerRepository.existsById(OwnerConverter.toModel(ownerDTO).getId())) {
-            throw new UserNotFoundException("User not found");
+    public OwnerDTO read(Integer id) throws NotFoundException {
+        Optional<Owner> owner = ownerRepository.findById(id);
+        if(owner.isEmpty()) {
+            throw new NotFoundException("Owner not found");
         }
-        return ownerDTO;
+        Owner ownerToDTO = owner.get();
+        return OwnerConverter.fromModel(ownerToDTO);
     }
 
-    public OwnerDTO update(Integer id, OwnerDTO ownerDTO) throws UserNotFoundException {
+    public OwnerDTO update(Integer id, OwnerDTO ownerDTO) throws NotFoundException {
         if(id != null) {
             Owner newOwner = ownerRepository.findById(id).get();
             newOwner.setFirstname(ownerDTO.getFirstname());
             newOwner.setLastname(ownerDTO.getLastname());
             return OwnerConverter.fromModel(ownerRepository.save(newOwner));
         } else {
-            throw new UserNotFoundException("User not found");
+            throw new NotFoundException("User not found");
         }
     }
 
-    public void delete(Integer id) throws UserNotFoundException {
+    public void delete(Integer id) throws NotFoundException {
         if(id != null) {
             if(ownerRepository.findById(id).isPresent()) {
                 ownerRepository.deleteById(id);
             } else {
-                throw new UserNotFoundException("User not found");
+                throw new NotFoundException("User not found");
             }
         } else {
-            throw new UserNotFoundException("User not found");
+            throw new NotFoundException("User not found");
         }
     }
 

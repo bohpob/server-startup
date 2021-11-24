@@ -4,10 +4,11 @@ import cz.cvut.fit.tjv.poberboh.server.converter.StartupConverter;
 import cz.cvut.fit.tjv.poberboh.server.dto.StartupDTO;
 import cz.cvut.fit.tjv.poberboh.server.entity.Startup;
 import cz.cvut.fit.tjv.poberboh.server.exception.UserAlreadyExistException;
-import cz.cvut.fit.tjv.poberboh.server.exception.UserNotFoundException;
+import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.repository.StartupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class StartupService {
@@ -23,34 +24,35 @@ public class StartupService {
         return startupDTO;
     }
 
-    public StartupDTO read(Integer id) throws UserNotFoundException {
-        StartupDTO startupDTO = StartupConverter.fromModel(startupRepository.findById(id).get());
-        if(startupRepository.existsById(StartupConverter.toModel(startupDTO).getId())) {
-            throw new UserNotFoundException("User not found");
+    public StartupDTO read(Integer id) throws NotFoundException {
+        Optional<Startup> startup = startupRepository.findById(id);
+        if (startup.isEmpty()) {
+            throw new NotFoundException("Startup not found");
         }
-        return startupDTO;
+        Startup startupToDTO = startup.get();
+        return StartupConverter.fromModel(startupToDTO);
     }
 
-    public StartupDTO update(Integer id, StartupDTO startupDTO) throws UserNotFoundException {
+    public StartupDTO update(Integer id, StartupDTO startupDTO) throws NotFoundException {
         if(id != null) {
             Startup newStartup = startupRepository.findById(id).get();
             newStartup.setName(startupDTO.getName());
             newStartup.setInvestment(startupDTO.getInvestment());
             return StartupConverter.fromModel(startupRepository.save(newStartup));
         } else {
-            throw new UserNotFoundException("User not found");
+            throw new NotFoundException("User not found");
         }
     }
 
-    public void delete(Integer id) throws UserNotFoundException {
+    public void delete(Integer id) throws NotFoundException {
         if(id != null) {
             if(startupRepository.findById(id).isPresent()) {
                 startupRepository.deleteById(id);
             } else {
-                throw new UserNotFoundException("User not found");
+                throw new NotFoundException("User not found");
             }
         } else {
-            throw new UserNotFoundException("User not found");
+            throw new NotFoundException("User not found");
         }
     }
     

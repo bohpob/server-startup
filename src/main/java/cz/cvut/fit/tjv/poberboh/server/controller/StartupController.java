@@ -2,7 +2,7 @@ package cz.cvut.fit.tjv.poberboh.server.controller;
 
 import cz.cvut.fit.tjv.poberboh.server.dto.StartupDTO;
 import cz.cvut.fit.tjv.poberboh.server.exception.UserAlreadyExistException;
-import cz.cvut.fit.tjv.poberboh.server.exception.UserNotFoundException;
+import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.service.StartupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,17 +20,17 @@ public class StartupController {
     }
 
     @GetMapping("/{id}")
-    public StartupDTO read(@PathVariable Integer id) throws UserNotFoundException {
+    public StartupDTO read(@PathVariable Integer id) throws NotFoundException {
         return startupService.read(id);
     }
 
     @PutMapping("/{id}")
-    public StartupDTO update(@PathVariable Integer id,@RequestBody StartupDTO startupDTO) throws UserNotFoundException {
+    public StartupDTO update(@PathVariable Integer id,@RequestBody StartupDTO startupDTO) throws NotFoundException {
         return startupService.update(id, startupDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) throws UserNotFoundException {
+    public void delete(@PathVariable Integer id) throws NotFoundException {
         startupService.delete(id);
     }
 
