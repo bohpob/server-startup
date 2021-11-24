@@ -10,7 +10,7 @@ public class StartupConverter {
     }
 
     public static StartupDTO fromModel(Startup startup) {
-        return new StartupDTO(startup.getName(), startup.getInvestment());
+        return new StartupDTO(startup.getName(), startup.getInvestment(), startup.getOwner());
     }
 
 }

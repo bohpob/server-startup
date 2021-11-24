@@ -1,7 +1,7 @@
 package cz.cvut.fit.tjv.poberboh.server.controller;
 
 import cz.cvut.fit.tjv.poberboh.server.dto.StartupDTO;
-import cz.cvut.fit.tjv.poberboh.server.exception.UserAlreadyExistException;
+import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.service.StartupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,8 @@ public class StartupController {
     private StartupService startupService;
 
     @PostMapping
-    public StartupDTO create(@RequestBody StartupDTO startupDTO) throws UserAlreadyExistException {
-        return startupService.create(startupDTO);
+    public StartupDTO create(@RequestBody StartupDTO startupDTO, @RequestParam Integer id) throws AlreadyExistException, NotFoundException {
+        return startupService.create(startupDTO, id);
     }
 
     @GetMapping("/{id}")

@@ -1,21 +1,20 @@
 package cz.cvut.fit.tjv.poberboh.server.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "owner")
 public class Owner {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String firstname;
     private String lastname;
 
-    public Owner(String firstname, String lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
+    @OneToMany(mappedBy = "owner")
+    private List<Startup> startupList;
 
     public Owner() {
     }
@@ -24,6 +23,21 @@ public class Owner {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
+    }
+
+    public Owner(Integer id, String firstname, String lastname, List<Startup> startupList) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.startupList = startupList;
+    }
+
+    public List<Startup> getStartupList() {
+        return startupList;
+    }
+
+    public void setStartupList(List<Startup> startupList) {
+        this.startupList = startupList;
     }
 
     public int getId() {

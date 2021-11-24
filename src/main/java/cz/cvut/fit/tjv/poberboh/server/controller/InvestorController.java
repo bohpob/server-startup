@@ -1,7 +1,7 @@
 package cz.cvut.fit.tjv.poberboh.server.controller;
 
 import cz.cvut.fit.tjv.poberboh.server.dto.InvestorDTO;
-import cz.cvut.fit.tjv.poberboh.server.exception.UserAlreadyExistException;
+import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.service.InvestorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class InvestorController {
     private InvestorService investorService;
 
     @PostMapping
-    public InvestorDTO create(@RequestBody InvestorDTO investorDTO) throws UserAlreadyExistException {
+    public InvestorDTO create(@RequestBody InvestorDTO investorDTO) throws AlreadyExistException {
         return investorService.create(investorDTO);
     }
 

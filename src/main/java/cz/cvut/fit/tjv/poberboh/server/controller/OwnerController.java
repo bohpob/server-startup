@@ -1,7 +1,7 @@
 package cz.cvut.fit.tjv.poberboh.server.controller;
 
 import cz.cvut.fit.tjv.poberboh.server.dto.OwnerDTO;
-import cz.cvut.fit.tjv.poberboh.server.exception.UserAlreadyExistException;
+import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class OwnerController {
     private OwnerService ownerService;
 
     @PostMapping
-    public OwnerDTO create(@RequestBody OwnerDTO ownerDTO) throws UserAlreadyExistException {
+    public OwnerDTO create(@RequestBody OwnerDTO ownerDTO) throws AlreadyExistException {
         return ownerService.create(ownerDTO);
     }
 

@@ -1,11 +1,18 @@
 package cz.cvut.fit.tjv.poberboh.server.dto;
 
+import cz.cvut.fit.tjv.poberboh.server.entity.Owner;
+
 public class StartupDTO {
 
     private String name;
     private Integer investment;
 
     public StartupDTO(String name, Integer investment) {
+        this.name = name;
+        this.investment = investment;
+    }
+
+    public StartupDTO(String name, Integer investment, Owner owner) {
         this.name = name;
         this.investment = investment;
     }

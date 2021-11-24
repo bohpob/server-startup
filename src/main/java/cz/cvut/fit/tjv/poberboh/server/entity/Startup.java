@@ -1,22 +1,31 @@
 package cz.cvut.fit.tjv.poberboh.server.entity;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "startup")
 public class Startup {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private Integer investment;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
+
     public Startup(Integer id, String name, Integer investment) {
         this.id = id;
         this.name = name;
         this.investment = investment;
+    }
+
+    public Startup(String name, Integer investment, Owner owner) {
+        this.name = name;
+        this.investment = investment;
+        this.owner = owner;
     }
 
     public Startup(String name, Integer investment) {
@@ -27,16 +36,13 @@ public class Startup {
     public Startup() {
     }
 
-    @ManyToOne
-    @JoinColumn(name = "owner_name")
-    private Owner owner;
+    public Owner getOwner() {
+        return owner;
+    }
 
-    @ManyToMany
-    @JoinTable(name = "investments",
-            joinColumns = @JoinColumn(name = "startup_id"),
-            inverseJoinColumns = @JoinColumn(name = "investor_id")
-    )
-    private List<Investor> investorList;
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
 
     public Integer getId() {
         return id;
