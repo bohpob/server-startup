@@ -81,6 +81,9 @@ public class Owner {
     public String toString() {
         return "Owner{" +
                 "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", startupList=" + startupList +
                 '}';
     }
 }

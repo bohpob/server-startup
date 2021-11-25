@@ -1,13 +1,30 @@
 package cz.cvut.fit.tjv.poberboh.server.dto;
 
+import java.util.List;
+
 public class InvestorDTO {
 
     private String firstname;
     private String lastname;
+    private List<StartupDTO> startupList;
 
     public InvestorDTO(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
+    }
+
+    public InvestorDTO(String firstname, String lastname, List<StartupDTO> startupList) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.startupList = startupList;
+    }
+
+    public List<StartupDTO> getStartupList() {
+        return startupList;
+    }
+
+    public void setStartupList(List<StartupDTO> startupList) {
+        this.startupList = startupList;
     }
 
     public InvestorDTO() {

@@ -3,6 +3,8 @@ package cz.cvut.fit.tjv.poberboh.server.converter;
 import cz.cvut.fit.tjv.poberboh.server.dto.InvestorDTO;
 import cz.cvut.fit.tjv.poberboh.server.entity.Investor;
 
+import java.util.stream.Collectors;
+
 public class InvestorConverter {
 
     public static Investor toModel(InvestorDTO investorDTO) {
@@ -10,6 +12,7 @@ public class InvestorConverter {
     }
 
     public static InvestorDTO fromModel(Investor investor) {
-        return new InvestorDTO(investor.getFirstname(), investor.getLastname());
+        return new InvestorDTO(investor.getFirstname(), investor.getLastname(),
+                investor.getInvested().stream().map(StartupConverter::fromModel).collect(Collectors.toList()));
     }
 }

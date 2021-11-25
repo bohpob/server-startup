@@ -13,7 +13,7 @@ public class Investor {
     private String firstname;
     private String lastname;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "invested",
             joinColumns = @JoinColumn(name = "investor_id"),
@@ -87,6 +87,9 @@ public class Investor {
     public String toString() {
         return "Investor{" +
                 "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", invested=" + invested +
                 '}';
     }
 }

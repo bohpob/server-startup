@@ -101,6 +101,10 @@ public class Startup {
     public String toString() {
         return "Startup{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
+                ", investment=" + investment +
+                ", owner=" + owner +
+                ", investors=" + investors +
                 '}';
     }
 }

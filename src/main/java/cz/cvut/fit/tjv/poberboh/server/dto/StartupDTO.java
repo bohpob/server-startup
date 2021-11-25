@@ -1,7 +1,5 @@
 package cz.cvut.fit.tjv.poberboh.server.dto;
 
-import cz.cvut.fit.tjv.poberboh.server.entity.Owner;
-
 import java.util.List;
 
 public class StartupDTO {
@@ -15,9 +13,18 @@ public class StartupDTO {
         this.investment = investment;
     }
 
-    public StartupDTO(String name, Integer investment, Owner owner) {
+    public StartupDTO(String name, Integer investment, List<InvestorDTO> investorList) {
         this.name = name;
         this.investment = investment;
+        this.investorList = investorList;
+    }
+
+    public List<InvestorDTO> getInvestorList() {
+        return investorList;
+    }
+
+    public void setInvestorList(List<InvestorDTO> investorList) {
+        this.investorList = investorList;
     }
 
     public StartupDTO() {
