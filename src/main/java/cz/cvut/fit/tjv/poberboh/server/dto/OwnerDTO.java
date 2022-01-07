@@ -4,14 +4,10 @@ import java.util.List;
 
 public class OwnerDTO {
 
+    private String username;
     private String firstname;
     private String lastname;
     private List<StartupDTO> startupList;
-
-    public OwnerDTO(String firstname, String lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
 
     public OwnerDTO(String firstname, String lastname, List<StartupDTO> startupList) {
         this.firstname = firstname;
@@ -19,7 +15,22 @@ public class OwnerDTO {
         this.startupList = startupList;
     }
 
+    public OwnerDTO(String username, String firstname, String lastname, List<StartupDTO> startupList) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.startupList = startupList;
+    }
+
     public OwnerDTO() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<StartupDTO> getStartupList() {
@@ -45,5 +56,4 @@ public class OwnerDTO {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-
 }

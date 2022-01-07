@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.poberboh.server.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,19 +18,19 @@ public class Startup {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @ManyToMany(mappedBy = "invested")
-    private List<Investor> investors;
-
-    public Startup(Integer id, String name, Integer investment) {
-        this.id = id;
-        this.name = name;
-        this.investment = investment;
-    }
+    @ManyToMany(mappedBy = "investments")
+    private List<Investor> investors = new ArrayList<>();
 
     public Startup(String name, Integer investment, Owner owner) {
         this.name = name;
         this.investment = investment;
         this.owner = owner;
+    }
+
+    public Startup(Integer id, String name, Integer investment) {
+        this.id = id;
+        this.name = name;
+        this.investment = investment;
     }
 
     public Startup(String name, Integer investment) {
@@ -41,12 +42,31 @@ public class Startup {
         return investors;
     }
 
+    public boolean investorExists(Investor investor) {
+        for (Investor invest : this.investors) {
+            if (investor.equals(invest)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void setInvestors(List<Investor> investors) {
         this.investors = investors;
     }
 
-    public void setInvestor(Investor investor) {
+    public void addInvestor(Investor investor) {
         investors.add(investor);
+    }
+
+    public void deleteInvestor(Investor investor) {
+        investors.remove(investor);
+    }
+
+    public void deleteAllInvestors() {
+        for (Investor investor : this.investors) {
+            investors.remove(investor);
+        }
     }
 
     public Startup() {
@@ -62,10 +82,6 @@ public class Startup {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -89,12 +105,15 @@ public class Startup {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Startup startup = (Startup) o;
-        return Objects.equals(id, startup.id);
+        return Objects.equals(id, startup.id)
+                && Objects.equals(name, startup.name)
+                && Objects.equals(investment, startup.investment)
+                && Objects.equals(owner, startup.owner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, investment, owner);
     }
 
     @Override

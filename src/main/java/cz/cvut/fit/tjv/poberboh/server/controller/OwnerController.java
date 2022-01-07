@@ -25,7 +25,7 @@ public class OwnerController {
     }
 
     @PutMapping("/{id}")
-    public OwnerDTO update(@PathVariable Integer id,@RequestBody OwnerDTO ownerDTO) throws NotFoundException {
+    public OwnerDTO update(@PathVariable Integer id, @RequestBody OwnerDTO ownerDTO) throws NotFoundException {
         return ownerService.update(id, ownerDTO);
     }
 

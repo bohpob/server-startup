@@ -3,6 +3,7 @@ package cz.cvut.fit.tjv.poberboh.server.service;
 import cz.cvut.fit.tjv.poberboh.server.converter.InvestorConverter;
 import cz.cvut.fit.tjv.poberboh.server.dto.InvestorDTO;
 import cz.cvut.fit.tjv.poberboh.server.entity.Investor;
+import cz.cvut.fit.tjv.poberboh.server.entity.Startup;
 import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.repository.InvestorRepository;
@@ -10,13 +11,10 @@ import cz.cvut.fit.tjv.poberboh.server.repository.StartupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 
 @Service
-public class InvestorService{
+public class InvestorService {
 
     @Autowired
     private InvestorRepository investorRepository;
@@ -24,16 +22,18 @@ public class InvestorService{
     @Autowired
     private StartupRepository startupRepository;
 
-    public InvestorDTO create(InvestorDTO investorDTO, ArrayList<Integer> ids) throws AlreadyExistException {
-        for (Integer id : ids) {
-            if(startupRepository.findById(id).isPresent()) {
-                startupRepository.findById(id).get().setInvestor(InvestorConverter.toModel(investorDTO));
-            }
+    public InvestorDTO create(InvestorDTO investorDTO, Integer startupID) throws AlreadyExistException, NotFoundException {
+        Optional<Startup> startup = startupRepository.findById(startupID);
+        if (startup.isEmpty()) {
+            throw new NotFoundException("Startup not found");
         }
-        if(investorRepository.findById(InvestorConverter.toModel(investorDTO).getId()).orElse(null) != null) {
-            throw new AlreadyExistException(InvestorConverter.toModel(investorDTO).toString() + " already exist");
+        if (investorRepository.findByUsername(investorDTO.getUsername()).isPresent()) {
+            throw new AlreadyExistException("Investor already exist");
         }
-        investorRepository.save(InvestorConverter.toModel(investorDTO));
+        Investor investor = new Investor(investorDTO.getUsername(), investorDTO.getFirstname(), investorDTO.getLastname());
+        investor.setInvestments(startup.get());
+        investorDTO.addStartup(startupID);
+        investorRepository.save(investor);
         return investorDTO;
     }
 
@@ -57,11 +57,15 @@ public class InvestorService{
     }
 
     public void delete(Integer id) throws NotFoundException {
-        if (investorRepository.findById(id).isEmpty()) {
-            throw new NotFoundException("User not found");
-        } else {
-            investorRepository.deleteById(id);
+        Optional<Investor> investor = investorRepository.findById(id);
+        if (investor.isEmpty()) {
+            throw new NotFoundException("Investor not found");
         }
+        for (Startup startup : investor.get().getInvestments()) {
+            if (startupRepository.findByName(startup.getName()).isPresent()) {
+                startupRepository.findByName(startup.getName()).get().deleteInvestor(investor.get());
+            }
+        }
+        investorRepository.deleteById(id);
     }
-
 }

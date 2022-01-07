@@ -17,8 +17,8 @@ public class OwnerService {
     private OwnerRepository ownerRepository;
 
     public OwnerDTO create(OwnerDTO ownerDTO) throws AlreadyExistException {
-        if(ownerRepository.findById(OwnerConverter.toModel(ownerDTO).getId()).orElse(null) != null) {
-            throw new AlreadyExistException(OwnerConverter.toModel(ownerDTO).toString() + " already exist");
+        if (ownerRepository.findByUsername(ownerDTO.getUsername()).isPresent()) {
+            throw new AlreadyExistException("Owner already exist");
         }
         ownerRepository.save(OwnerConverter.toModel(ownerDTO));
         return ownerDTO;
@@ -50,5 +50,4 @@ public class OwnerService {
             ownerRepository.deleteById(id);
         }
     }
-
 }

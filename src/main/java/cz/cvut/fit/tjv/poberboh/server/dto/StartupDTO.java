@@ -19,15 +19,15 @@ public class StartupDTO {
         this.investorList = investorList;
     }
 
+    public StartupDTO() {
+    }
+
     public List<InvestorDTO> getInvestorList() {
         return investorList;
     }
 
     public void setInvestorList(List<InvestorDTO> investorList) {
         this.investorList = investorList;
-    }
-
-    public StartupDTO() {
     }
 
     public String getName() {
@@ -45,5 +45,4 @@ public class StartupDTO {
     public void setInvestment(Integer investment) {
         this.investment = investment;
     }
-
 }

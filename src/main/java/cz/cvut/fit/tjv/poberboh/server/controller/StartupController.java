@@ -25,13 +25,23 @@ public class StartupController {
     }
 
     @PutMapping("/{id}")
-    public StartupDTO update(@PathVariable Integer id,@RequestBody StartupDTO startupDTO) throws NotFoundException {
+    public StartupDTO update(@PathVariable Integer id, @RequestBody StartupDTO startupDTO) throws NotFoundException {
         return startupService.update(id, startupDTO);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) throws NotFoundException {
         startupService.delete(id);
+    }
+
+    @PostMapping("/{id}/add_investors")
+    public StartupDTO addInvestor(@PathVariable Integer id, @RequestParam Integer investorID) throws NotFoundException, AlreadyExistException {
+        return startupService.addInvestor(id, investorID);
+    }
+
+    @DeleteMapping("/{id}/delete_investors")
+    public void deleteInvestor(@PathVariable Integer id, @RequestParam Integer investorID) throws NotFoundException {
+        startupService.deleteInvestor(id, investorID);
     }
 
 }

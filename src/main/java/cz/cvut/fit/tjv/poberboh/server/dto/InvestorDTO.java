@@ -1,33 +1,45 @@
 package cz.cvut.fit.tjv.poberboh.server.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InvestorDTO {
 
+    private String username;
     private String firstname;
     private String lastname;
-    private List<StartupDTO> startupList;
+    private List<Integer> startupIds = new ArrayList<>();
 
-    public InvestorDTO(String firstname, String lastname) {
+    public InvestorDTO(String username, String firstname, String lastname, List<Integer> startupList) {
+        this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
-    }
-
-    public InvestorDTO(String firstname, String lastname, List<StartupDTO> startupList) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.startupList = startupList;
-    }
-
-    public List<StartupDTO> getStartupList() {
-        return startupList;
-    }
-
-    public void setStartupList(List<StartupDTO> startupList) {
-        this.startupList = startupList;
+        this.startupIds = startupList;
     }
 
     public InvestorDTO() {
+    }
+
+    public List<Integer> getStartupList() {
+        return startupIds;
+    }
+
+    public InvestorDTO(String username, String firstname, String lastname) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    public void addStartup(Integer id) {
+        startupIds.add(id);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstname() {

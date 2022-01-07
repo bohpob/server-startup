@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.poberboh.server.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ public class Investor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String username;
     private String firstname;
     private String lastname;
 
@@ -18,40 +20,71 @@ public class Investor {
             name = "invested",
             joinColumns = @JoinColumn(name = "investor_id"),
             inverseJoinColumns = @JoinColumn(name = "startup_id"))
-    private List<Startup> invested;
+    private List<Startup> investments = new ArrayList<>();
 
     public Investor() {
     }
 
-    public Investor(String firstname, String lastname) {
+    public Investor(String username, String firstname, String lastname, List<Startup> investments) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.investments = investments;
+    }
+
+    public Investor(Integer id, String username, String firstname, String lastname) {
+        this.id = id;
+        this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
     }
 
-    public Investor(int id, String firstname, String lastname) {
-        this.id = id;
+    public Investor(String username, String firstname, String lastname) {
+        this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public List<Startup> getInvestments() {
+        return investments;
     }
 
-    public List<Startup> getInvested() {
-        return invested;
+    public List<Integer> getStartupsId() {
+        List<Integer> list = new ArrayList<>();
+        for (Startup startup : investments) {
+            list.add(startup.getId());
+        }
+        return list;
     }
 
-    public void setInvested(List<Startup> invested) {
-        this.invested = invested;
+    public void setInvestments(Startup startup) {
+        this.investments.add(startup);
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void removeInvested(Startup startup) {
+        investments.remove(startup);
+    }
+
+    public void removeAllInvested() {
+        for (Startup startup : this.investments) {
+            investments.remove(startup);
+        }
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setInvestments(List<Startup> investments) {
+        this.investments = investments;
     }
 
     public String getFirstname() {
@@ -87,9 +120,10 @@ public class Investor {
     public String toString() {
         return "Investor{" +
                 "id=" + id +
+                ", username='" + username + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", invested=" + invested +
+                ", investments=" + investments +
                 '}';
     }
 }

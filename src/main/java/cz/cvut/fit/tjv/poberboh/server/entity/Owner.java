@@ -10,6 +10,7 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String username;
     private String firstname;
     private String lastname;
 
@@ -19,21 +20,40 @@ public class Owner {
     public Owner() {
     }
 
+    public Owner(Integer id, String username, String firstname, String lastname) {
+        this.id = id;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    public Owner(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    public Owner(String username, String firstname, String lastname) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
     public Owner(int id, String firstname, String lastname) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
     }
 
-    public Owner(Integer id, String firstname, String lastname, List<Startup> startupList) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.startupList = startupList;
-    }
-
     public List<Startup> getStartupList() {
         return startupList;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setStartupList(List<Startup> startupList) {
@@ -42,10 +62,6 @@ public class Owner {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstname() {
@@ -81,6 +97,7 @@ public class Owner {
     public String toString() {
         return "Owner{" +
                 "id=" + id +
+                ", username='" + username + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", startupList=" + startupList +
