@@ -15,7 +15,7 @@ public class Investor {
     private String firstname;
     private String lastname;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(
             name = "invested",
             joinColumns = @JoinColumn(name = "investor_id"),

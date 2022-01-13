@@ -34,14 +34,13 @@ public class StartupController {
         startupService.delete(id);
     }
 
-    @PostMapping("/{id}/add_investors")
+    @RequestMapping("/add_investor/{id}")
     public StartupDTO addInvestor(@PathVariable Integer id, @RequestParam Integer investorID) throws NotFoundException, AlreadyExistException {
         return startupService.addInvestor(id, investorID);
     }
 
-    @DeleteMapping("/{id}/delete_investors")
+    @DeleteMapping("/delete_investor/{id}")
     public void deleteInvestor(@PathVariable Integer id, @RequestParam Integer investorID) throws NotFoundException {
         startupService.deleteInvestor(id, investorID);
     }
-
 }

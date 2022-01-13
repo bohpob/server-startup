@@ -5,6 +5,7 @@ import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class OwnerController {
     private OwnerService ownerService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public OwnerDTO create(@RequestBody OwnerDTO ownerDTO) throws AlreadyExistException {
         return ownerService.create(ownerDTO);
     }
@@ -30,7 +32,10 @@ public class OwnerController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) throws NotFoundException {
+    public void delete(@PathVariable Integer id) throws Exception {
+        if (ownerService.readById(id).isEmpty()) {
+            throw new NotFoundException("Owner not found");
+        }
         ownerService.delete(id);
     }
 

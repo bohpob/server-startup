@@ -43,11 +43,11 @@ public class OwnerService {
         return OwnerConverter.fromModel(ownerRepository.save(owner.get()));
     }
 
-    public void delete(Integer id) throws NotFoundException {
-        if (ownerRepository.findById(id).isEmpty()) {
-            throw new NotFoundException("Owner not found");
-        } else {
-            ownerRepository.deleteById(id);
-        }
+    public void delete(Integer id) {
+        ownerRepository.deleteById(id);
+    }
+
+    public Optional<Owner> readById(Integer id) {
+        return ownerRepository.findById(id);
     }
 }

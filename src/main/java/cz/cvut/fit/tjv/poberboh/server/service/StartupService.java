@@ -40,12 +40,10 @@ public class StartupService {
     }
 
     public StartupDTO read(Integer id) throws NotFoundException {
-        Optional<Startup> startup = startupRepository.findById(id);
-        if (startup.isEmpty()) {
+        if (startupRepository.findById(id).isEmpty()) {
             throw new NotFoundException("Startup not found");
         }
-        Startup startupToDTO = startup.get();
-        return StartupConverter.fromModel(startupToDTO);
+        return StartupConverter.fromModel(startupRepository.findById(id).get());
     }
 
     public StartupDTO update(Integer id, StartupDTO startupDTO) throws NotFoundException {
@@ -72,43 +70,41 @@ public class StartupService {
     }
 
     public StartupDTO addInvestor(Integer startupID, Integer investorID) throws NotFoundException, AlreadyExistException {
-        Optional<Startup> startup = startupRepository.findById(startupID);
-        if (startup.isEmpty()) {
+        if (startupRepository.findById(startupID).isEmpty()) {
             throw new NotFoundException("Startup not found");
         }
-        Optional<Investor> investor = investorRepository.findById(investorID);
-        if (investor.isEmpty()) {
+        if (investorRepository.findById(investorID).isEmpty()) {
             throw new NotFoundException("Investor not found");
         }
-        for (Investor i : startup.get().getInvestors()) {
-            if (i.getUsername().equals(investor.get().getUsername())) {
+        for (Investor i : startupRepository.findById(startupID).get().getInvestors()) {
+            if (i.getUsername().equals(investorRepository.findById(investorID).get().getUsername())) {
                 throw new AlreadyExistException("Investor is already a startup investor");
             }
         }
-        startup.get().addInvestor(investor.get());
-        investor.get().setInvestments(startup.get());
-        return StartupConverter.fromModel(startup.get());
+        startupRepository.findById(startupID).get().addInvestor(investorRepository.findById(investorID).get());
+        investorRepository.findById(investorID).get().setInvestments(startupRepository.findById(startupID).get());
+        startupRepository.save(startupRepository.findById(startupID).get());
+        return StartupConverter.fromModel(startupRepository.findById(startupID).get());
     }
 
     public void deleteInvestor(Integer startupID, Integer investorID) throws NotFoundException {
-        Optional<Startup> startup = startupRepository.findById(startupID);
-        boolean invested = false;
-        if (startup.isEmpty()) {
+        if (startupRepository.findById(startupID).isEmpty()) {
             throw new NotFoundException("Startup not found");
         }
-        Optional<Investor> investor = investorRepository.findById(investorID);
-        if (investor.isEmpty()) {
+        if (investorRepository.findById(investorID).isEmpty()) {
             throw new NotFoundException("Investor not found");
         }
-        for (Investor i : startup.get().getInvestors()) {
-            if (i.getUsername().equals(investor.get().getUsername())) {
-                startup.get().deleteInvestor(investor.get());
+        boolean invested = false;
+        for (Investor i : startupRepository.findById(startupID).get().getInvestors()) {
+            if (i.getUsername().equals(investorRepository.findById(investorID).get().getUsername())) {
+                investorRepository.findById(investorID).get().removeInvested(startupRepository.findById(startupID).get());
+                startupRepository.findById(startupID).get().deleteInvestor(investorRepository.findById(investorID).get());
+                startupRepository.save(startupRepository.findById(startupID).get());
                 invested = true;
             }
         }
-        investor.get().removeInvested(startup.get());
         if (!invested) {
-            throw new NotFoundException("Еhe investor was not a startup investor");
+            throw new NotFoundException("Investor was not a startup investor");
         }
     }
 }

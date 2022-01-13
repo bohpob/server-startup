@@ -38,6 +38,15 @@ public class Owner {
         this.lastname = lastname;
     }
 
+    public Owner(String username) {
+        this.username = username;
+    }
+
+    public Owner(Integer id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
     public Owner(int id, String firstname, String lastname) {
         this.id = id;
         this.firstname = firstname;

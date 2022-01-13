@@ -5,6 +5,7 @@ import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.service.InvestorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class InvestorController {
     private InvestorService investorService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public InvestorDTO create(@RequestBody InvestorDTO investorDTO, @RequestParam Integer id) throws AlreadyExistException, NotFoundException {
         return investorService.create(investorDTO, id);
     }
@@ -33,5 +35,4 @@ public class InvestorController {
     public void delete(@PathVariable Integer id) throws NotFoundException {
         investorService.delete(id);
     }
-
 }
