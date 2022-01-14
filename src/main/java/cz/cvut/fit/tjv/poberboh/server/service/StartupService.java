@@ -24,7 +24,7 @@ public class StartupService {
     private OwnerRepository ownerRepository;
 
     @Autowired
-    InvestorRepository investorRepository;
+    private InvestorRepository investorRepository;
 
     public StartupDTO create(StartupDTO startupDTO, Integer id) throws AlreadyExistException, NotFoundException {
         Optional<Owner> owner = ownerRepository.findById(id);

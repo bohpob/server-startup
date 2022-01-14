@@ -22,6 +22,12 @@ public class OwnerDTO {
         this.startupList = startupList;
     }
 
+    public OwnerDTO(String username, String firstname, String lastname) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
     public OwnerDTO(String username) {
         this.username = username;
     }

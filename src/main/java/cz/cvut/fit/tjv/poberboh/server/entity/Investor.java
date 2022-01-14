@@ -20,7 +20,7 @@ public class Investor {
             name = "invested",
             joinColumns = @JoinColumn(name = "investor_id"),
             inverseJoinColumns = @JoinColumn(name = "startup_id"))
-    private List<Startup> investments = new ArrayList<>();
+    private List<Startup> investments= new ArrayList<>();
 
     public Investor() {
     }

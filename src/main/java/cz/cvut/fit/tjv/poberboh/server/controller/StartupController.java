@@ -5,6 +5,7 @@ import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.service.StartupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class StartupController {
     private StartupService startupService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public StartupDTO create(@RequestBody StartupDTO startupDTO, @RequestParam Integer id) throws AlreadyExistException, NotFoundException {
         return startupService.create(startupDTO, id);
     }

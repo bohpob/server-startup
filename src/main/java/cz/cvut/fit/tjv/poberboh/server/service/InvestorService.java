@@ -51,6 +51,7 @@ public class InvestorService {
         if (investor.isEmpty()) {
             throw new NotFoundException("Investor not found");
         }
+        investor.get().setUsername(investorDTO.getUsername());
         investor.get().setFirstname(investorDTO.getFirstname());
         investor.get().setLastname(investorDTO.getLastname());
         return InvestorConverter.fromModel(investorRepository.save(investor.get()));

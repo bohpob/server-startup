@@ -31,7 +31,11 @@ public class InvestorDTO {
     }
 
     public void addStartup(Integer id) {
-        startupIds.add(id);
+        this.startupIds.add(id);
+    }
+
+    public void setStartupIds(List<Integer> startupIds) {
+        this.startupIds = startupIds;
     }
 
     public String getUsername() {

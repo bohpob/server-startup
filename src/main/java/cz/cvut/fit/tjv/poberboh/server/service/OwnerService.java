@@ -38,16 +38,16 @@ public class OwnerService {
         if (owner.isEmpty()) {
             throw new NotFoundException("Owner not found");
         }
+        owner.get().setUsername(ownerDTO.getUsername());
         owner.get().setFirstname(ownerDTO.getFirstname());
         owner.get().setLastname(ownerDTO.getLastname());
         return OwnerConverter.fromModel(ownerRepository.save(owner.get()));
     }
 
-    public void delete(Integer id) {
+    public void delete(Integer id) throws NotFoundException {
+        if (ownerRepository.findById(id).isEmpty()) {
+            throw new NotFoundException("Owner not found");
+        }
         ownerRepository.deleteById(id);
-    }
-
-    public Optional<Owner> readById(Integer id) {
-        return ownerRepository.findById(id);
     }
 }
