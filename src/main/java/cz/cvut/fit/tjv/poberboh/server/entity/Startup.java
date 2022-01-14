@@ -72,6 +72,10 @@ public class Startup {
     public Startup() {
     }
 
+    public void setInvestor(Investor investor) {
+        this.investors.add(investor);
+    }
+
     public Owner getOwner() {
         return owner;
     }

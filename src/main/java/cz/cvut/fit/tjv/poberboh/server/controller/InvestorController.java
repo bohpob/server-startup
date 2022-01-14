@@ -33,6 +33,10 @@ public class InvestorController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) throws NotFoundException {
-        investorService.delete(id);
+        if (investorService.readById(id).isEmpty()) {
+            throw new NotFoundException("Investor not found");
+        } else {
+            investorService.delete(id);
+        }
     }
 }

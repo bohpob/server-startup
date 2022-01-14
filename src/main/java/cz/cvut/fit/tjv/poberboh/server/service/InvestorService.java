@@ -69,4 +69,8 @@ public class InvestorService {
         }
         investorRepository.deleteById(id);
     }
+
+    public Optional<Investor> readById(Integer id) {
+        return investorRepository.findById(id);
+    }
 }
