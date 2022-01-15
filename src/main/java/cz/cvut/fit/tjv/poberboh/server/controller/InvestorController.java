@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+
 @RestController
 @RequestMapping("/investors")
 public class InvestorController {
@@ -39,4 +41,11 @@ public class InvestorController {
             investorService.delete(id);
         }
     }
+
+    @Transactional
+    @DeleteMapping("/deleteInvestors")
+    public void deleteAllByInvestmentsEmpty() {
+        investorService.deleteAll();
+    }
+
 }

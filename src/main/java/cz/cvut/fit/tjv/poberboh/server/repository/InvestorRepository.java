@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface InvestorRepository extends JpaRepository<Investor, Integer> {
     Optional<Investor> findByUsername(String username);
+    void deleteAllByInvestmentsIsNull();
 }
