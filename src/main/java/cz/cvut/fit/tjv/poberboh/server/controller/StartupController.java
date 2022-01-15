@@ -33,7 +33,11 @@ public class StartupController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) throws NotFoundException {
-        startupService.delete(id);
+        if (startupService.readById(id).isEmpty()) {
+            throw new NotFoundException("Startup not found");
+        } else {
+            startupService.delete(id);
+        }
     }
 
     @RequestMapping("/add_investor/{id}")

@@ -33,6 +33,10 @@ public class OwnerController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) throws NotFoundException {
-        ownerService.delete(id);
+        if (ownerService.readById(id).isEmpty()) {
+            throw new NotFoundException("Owner not found");
+        } else {
+            ownerService.delete(id);
+        }
     }
 }

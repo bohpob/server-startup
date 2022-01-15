@@ -2,6 +2,7 @@ package cz.cvut.fit.tjv.poberboh.server.service;
 
 import cz.cvut.fit.tjv.poberboh.server.converter.OwnerConverter;
 import cz.cvut.fit.tjv.poberboh.server.dto.OwnerDTO;
+import cz.cvut.fit.tjv.poberboh.server.entity.Investor;
 import cz.cvut.fit.tjv.poberboh.server.entity.Owner;
 import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
@@ -49,5 +50,9 @@ public class OwnerService {
             throw new NotFoundException("Owner not found");
         }
         ownerRepository.deleteById(id);
+    }
+
+    public Optional<Owner> readById(Integer id) {
+        return ownerRepository.findById(id);
     }
 }

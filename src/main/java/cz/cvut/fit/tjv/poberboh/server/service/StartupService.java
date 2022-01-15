@@ -69,6 +69,10 @@ public class StartupService {
         startupRepository.deleteById(id);
     }
 
+    public Optional<Startup> readById(Integer id) throws NotFoundException {
+        return startupRepository.findById(id);
+    }
+
     public StartupDTO addInvestor(Integer startupID, Integer investorID) throws NotFoundException, AlreadyExistException {
         if (startupRepository.findById(startupID).isEmpty()) {
             throw new NotFoundException("Startup not found");
