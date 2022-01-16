@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(classes = RestServer.class)
+@SpringBootTest(classes = RestServer.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class RestServerTest {
 
     @Test
