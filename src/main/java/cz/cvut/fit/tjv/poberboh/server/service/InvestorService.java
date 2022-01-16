@@ -9,9 +9,13 @@ import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.repository.InvestorRepository;
 import cz.cvut.fit.tjv.poberboh.server.repository.StartupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class InvestorService {
@@ -76,5 +80,9 @@ public class InvestorService {
 
     public void deleteAll() {
         investorRepository.deleteAllByInvestmentsIsNull();
+    }
+
+    public List<InvestorDTO> readAll() {
+        return investorRepository.findAll().stream().map(InvestorConverter::fromModel).collect(Collectors.toList());
     }
 }

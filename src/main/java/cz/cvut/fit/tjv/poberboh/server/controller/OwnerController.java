@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.poberboh.server.controller;
 
+import cz.cvut.fit.tjv.poberboh.server.dto.InvestorDTO;
 import cz.cvut.fit.tjv.poberboh.server.dto.OwnerDTO;
 import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
@@ -7,6 +8,8 @@ import cz.cvut.fit.tjv.poberboh.server.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/owners")
@@ -38,5 +41,10 @@ public class OwnerController {
         } else {
             ownerService.delete(id);
         }
+    }
+
+    @GetMapping
+    private List<OwnerDTO> readAll() {
+        return ownerService.readAll();
     }
 }

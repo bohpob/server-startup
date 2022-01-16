@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.poberboh.server.controller;
 
+import cz.cvut.fit.tjv.poberboh.server.dto.InvestorDTO;
 import cz.cvut.fit.tjv.poberboh.server.dto.StartupDTO;
 import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
@@ -7,6 +8,8 @@ import cz.cvut.fit.tjv.poberboh.server.service.StartupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/startups")
@@ -48,5 +51,10 @@ public class StartupController {
     @DeleteMapping("/delete_investor/{id}")
     public void deleteInvestor(@PathVariable Integer id, @RequestParam Integer investorID) throws NotFoundException {
         startupService.deleteInvestor(id, investorID);
+    }
+
+    @GetMapping
+    private List<StartupDTO> readAll() {
+        return startupService.readAll();
     }
 }

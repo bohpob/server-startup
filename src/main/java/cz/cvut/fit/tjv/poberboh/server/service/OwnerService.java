@@ -1,6 +1,8 @@
 package cz.cvut.fit.tjv.poberboh.server.service;
 
+import cz.cvut.fit.tjv.poberboh.server.converter.InvestorConverter;
 import cz.cvut.fit.tjv.poberboh.server.converter.OwnerConverter;
+import cz.cvut.fit.tjv.poberboh.server.dto.InvestorDTO;
 import cz.cvut.fit.tjv.poberboh.server.dto.OwnerDTO;
 import cz.cvut.fit.tjv.poberboh.server.entity.Investor;
 import cz.cvut.fit.tjv.poberboh.server.entity.Owner;
@@ -9,7 +11,10 @@ import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OwnerService {
@@ -54,5 +59,9 @@ public class OwnerService {
 
     public Optional<Owner> readById(Integer id) {
         return ownerRepository.findById(id);
+    }
+
+    public List<OwnerDTO> readAll() {
+        return ownerRepository.findAll().stream().map(OwnerConverter::fromModel).collect(Collectors.toList());
     }
 }

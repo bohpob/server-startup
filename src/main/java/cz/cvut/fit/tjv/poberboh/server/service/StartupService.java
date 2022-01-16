@@ -1,6 +1,8 @@
 package cz.cvut.fit.tjv.poberboh.server.service;
 
+import cz.cvut.fit.tjv.poberboh.server.converter.OwnerConverter;
 import cz.cvut.fit.tjv.poberboh.server.converter.StartupConverter;
+import cz.cvut.fit.tjv.poberboh.server.dto.OwnerDTO;
 import cz.cvut.fit.tjv.poberboh.server.dto.StartupDTO;
 import cz.cvut.fit.tjv.poberboh.server.entity.Investor;
 import cz.cvut.fit.tjv.poberboh.server.entity.Owner;
@@ -12,7 +14,10 @@ import cz.cvut.fit.tjv.poberboh.server.repository.OwnerRepository;
 import cz.cvut.fit.tjv.poberboh.server.repository.StartupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StartupService {
@@ -110,5 +115,9 @@ public class StartupService {
         if (!invested) {
             throw new NotFoundException("Investor was not a startup investor");
         }
+    }
+
+    public List<StartupDTO> readAll() {
+        return startupRepository.findAll().stream().map(StartupConverter::fromModel).collect(Collectors.toList());
     }
 }
