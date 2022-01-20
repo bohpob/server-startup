@@ -14,7 +14,7 @@ public class Owner {
     private String firstname;
     private String lastname;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "owner")
     private List<Startup> startupList;
 
     public Owner() {
