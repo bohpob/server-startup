@@ -1,4 +1,4 @@
-# Client-Server Application. School Project
+# Client-Server Application. School Project. Server
 
 ## Overview
 
@@ -18,3 +18,19 @@ The application is built using Gradle, and during the build process, automated t
 
 ## Client Side
 [Client Repository Link](https://github.com/bohpob/SpringShellDemoClient)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/bohpob/SpringDemoServer.git
+   ```
+2. Navigate to the server directory and build the application:
+   ```bash
+   cd server
+    ./gradlew build
+   ```
+3. Run the server:
+   ```bash
+   ./gradlew bootRun
+   ```
