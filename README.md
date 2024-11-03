@@ -27,7 +27,7 @@ The application is built using Gradle, and during the build process, automated t
    ```
 2. Navigate to the server directory and build the application:
    ```bash
-   cd server
+   cd SpringDemoServer/
     ./gradlew build
    ```
 3. Run the server:
