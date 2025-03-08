@@ -1,4 +1,4 @@
-# Client-Server Application. School Project. Server
+# Client-Server Application. Server
 
 ## Overview
 
