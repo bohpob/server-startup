@@ -17,13 +17,13 @@ The server-side of the application consists of the following layers:
 The application is built using Gradle, and during the build process, automated tests are executed and evaluated to ensure code quality and functionality.
 
 ## Client Side
-[Client Repository Link](https://github.com/bohpob/SpringShellDemoClient)
+[Client Repository Link](https://github.com/bohpob/cli-client-startup)
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/bohpob/SpringDemoServer.git
+   git clone https://github.com/bohpob/server-startup.git
    ```
 2. Navigate to the server directory and build the application:
    ```bash
