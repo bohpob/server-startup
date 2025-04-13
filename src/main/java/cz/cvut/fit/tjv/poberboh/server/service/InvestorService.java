@@ -9,8 +9,6 @@ import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;
 import cz.cvut.fit.tjv.poberboh.server.repository.InvestorRepository;
 import cz.cvut.fit.tjv.poberboh.server.repository.StartupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +20,7 @@ public class InvestorService {
 
     @Autowired
     private InvestorRepository investorRepository;
-    
+
     @Autowired
     private StartupRepository startupRepository;
 

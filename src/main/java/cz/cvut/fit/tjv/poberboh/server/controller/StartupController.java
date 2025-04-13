@@ -1,6 +1,5 @@
 package cz.cvut.fit.tjv.poberboh.server.controller;
 
-import cz.cvut.fit.tjv.poberboh.server.dto.InvestorDTO;
 import cz.cvut.fit.tjv.poberboh.server.dto.StartupDTO;
 import cz.cvut.fit.tjv.poberboh.server.exception.AlreadyExistException;
 import cz.cvut.fit.tjv.poberboh.server.exception.NotFoundException;

@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.poberboh.server.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class Investor {
             name = "invested",
             joinColumns = @JoinColumn(name = "investor_id"),
             inverseJoinColumns = @JoinColumn(name = "startup_id"))
-    private List<Startup> investments= new ArrayList<>();
+    private List<Startup> investments = new ArrayList<>();
 
     public Investor() {
     }

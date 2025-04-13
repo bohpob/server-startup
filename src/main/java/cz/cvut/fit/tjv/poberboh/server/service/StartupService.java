@@ -1,8 +1,6 @@
 package cz.cvut.fit.tjv.poberboh.server.service;
 
-import cz.cvut.fit.tjv.poberboh.server.converter.OwnerConverter;
 import cz.cvut.fit.tjv.poberboh.server.converter.StartupConverter;
-import cz.cvut.fit.tjv.poberboh.server.dto.OwnerDTO;
 import cz.cvut.fit.tjv.poberboh.server.dto.StartupDTO;
 import cz.cvut.fit.tjv.poberboh.server.entity.Investor;
 import cz.cvut.fit.tjv.poberboh.server.entity.Owner;
@@ -62,7 +60,7 @@ public class StartupService {
     }
 
     public void delete(Integer id) throws NotFoundException {
-        Optional <Startup> startup = startupRepository.findById(id);
+        Optional<Startup> startup = startupRepository.findById(id);
         if (startup.isEmpty()) {
             throw new NotFoundException("Startup not found");
         }
