@@ -1,4 +1,4 @@
-# Client-Server Application. Server
+# Server Application
 
 ## Overview
 
